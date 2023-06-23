@@ -1,3 +1,4 @@
+from time import sleep as wait
 from download import download
 import inspect
 import os
@@ -27,6 +28,9 @@ def find_cheat(name: str):
         if cheat['name'] == name:
             return cheat['class']
 
+def run_cheat(name: str, nickname: str, progress_bar):
+    find_cheat(name).run(nickname, progress_bar)
+
 class Cheat:
     def __init__(self, name, link, jar, type, crack_by):
         self.name = name
@@ -41,15 +45,29 @@ class Cheat:
         all_members['class'] = self
         return all_members
 
-    def download(self): # downloads libs, natives, etc.
+    def download(self, progress_bar): # downloads libs, natives, etc.
+        def animation(num: float):
+            list = []
+            for i in range(int((num - progress_bar.get()) / 0.1) + 1):
+                value = progress_bar.get() + i * 0.1
+                list.append(value)
+            list.append(num)
+
+            for _ in list:
+                progress_bar.set(_)
+                wait(0.1)
+
         if not os.path.isdir('downloads'):
+            animation(0.1)
             os.mkdir('downloads')
 
         if not os.path.isdir('downloads/libraries'):
+            animation(0.2)
             os.mkdir('downloads/libraries')
             download(libraries_link, 'downloads/', kind='zip', replace=True)
         
         if not os.path.isdir('downloads/natives'):
+            animation(0.3)
             os.mkdir('downloads/natives')
             if os.name == 'nt':
                 download(natives_link_windows, 'downloads/', kind='zip', replace=True)
@@ -57,37 +75,36 @@ class Cheat:
                 download(natives_link_linux, 'downloads/', kind='zip', replace=True)
         
         if not os.path.isdir('downloads/assets'):
+            animation(0.4)
             os.mkdir('downloads/assets')
             download(assets_1_12, 'downloads/', kind='zip', replace=True)
 
         if os.name == 'nt':
             if not os.path.isdir('downloads/jre_windows'):
+                animation(0.5)
                 download(jre_windows, 'downloads/', kind='zip', replace=True)
         else:
             if not os.path.isdir('downloads/jre_linux'):
+                animation(0.5)
                 download(jre_linux, 'downloads/', kind='zip', replace=True)
 
+        animation(1)
         download(self.link, 'downloads/' + self.jar)
 
-    def run(self, nickname):
-        self.download()
-
-        libraries_folder = 'downloads/libraries/' # тут либы от 1.12.2
-        #print(f'java -noverify -Xmx2048M -Djava.library.path=downloads/natives -cp {libraries_folder}*;downloads/{self.jar} net.minecraft.client.main.Main --username {nickname} --version WineCraft --gameDir downloads/ --assetsDir ./downloads/assets --assetIndex 1.12 --uuid N/A --accessToken 0 --userType mojang')
+    def run(self, nickname, progress_bar):
+        self.download(progress_bar)
         
         os.chdir('downloads')
         
-        #java_bin = 'jre_windows/bin/java' if os.name == 'nt' else 'jre_linux/bin/java' 
-        java_bin = 'java'
-        if os.name == 'posix': # make chmod +x, fix of Permission denied
+        java_bin = 'jre_windows/bin/java' if os.name == 'nt' else 'jre_linux/bin/java' 
+        
+        if os.name != 'nt': # make chmod +x, fix of Permission denied error
             os.system('chmod +x jre_linux/bin/java')
 
-        start_command = f'''{java_bin} -noverify -Xmx2048M -Djava.library.path=natives/ -cp {':'.join(fileList('libraries', 'jar'))}:{self.jar} net.minecraft.client.main.Main --username {nickname} --version WineCraft --gameDir ./ --assetsDir assets --assetIndex 1.12 --uuid N/A --accessToken 0 --userType mojang'''
+        start_command = f'''{java_bin} -noverify -Xmx2048M -Djava.library.path=./natives/ -cp ./libraries/*:{self.jar} net.minecraft.client.main.Main --username {nickname} --version WineCraft --gameDir ./ --assetsDir ./assets --assetIndex 1.12 --uuid N/A --accessToken 0 --userType mojang'''
         print(start_command)
         os.system(start_command)
+        print('Minecraft STOP')
         os.chdir('../')
 
-norender = Cheat('NoRender', 'https://cdn.discordapp.com/attachments/698068083360792576/1121757384914784278/NoRenderCrack.jar', 'NoRenderCrack.jar', 'crack', 'HCU')
-osium = Cheat('Osium', 'link', '123123', 'crack','WhiteWhess')
-
-norender.run('Purpl3_YT')
+rockstar = Cheat('Rockstar', 'https://cdn.discordapp.com/attachments/1070727971515662447/1121852131591344209/RockStarFree.jar', 'RockStarFree.jar', 'free', None)

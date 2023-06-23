@@ -1,20 +1,18 @@
 from time import sleep as wait
-from customtkinter import CTk, CTkButton, CTkLabel, StringVar, CTkComboBox, CTkEntry
+from customtkinter import CTk, CTkButton, CTkLabel, StringVar, CTkComboBox, CTkEntry, CTkProgressBar
 from random import choice
 from config import update_config
-from cheats import find_cheat
+from cheats import find_cheat, run_cheat
 from threading import Thread
 
-def start_cheat(app: CTk, start_button: CTkButton, nickname: CTkEntry):
+def start_cheat(app: CTk, start_button: CTkButton, nickname: CTkEntry, combobox: CTkComboBox, progress_bar: CTkProgressBar):
     print('start cheat')
-    app.config(cursor='watch') # курсор загрузки
-
-    start_button._state = "disabled"
 
     update_config('nickname', nickname.get())
 
-def banner_animation(text: CTkLabel, stringvar: StringVar):
-    stringvar.set('123123')
+    # start cheat in new thread
+    cheat_thread = Thread(target=run_cheat, args=(combobox.get(), nickname.get(), progress_bar))
+    cheat_thread.start()
 
 def text_animation(text):#return a list with step by step animation
     symbols = ['*','@','#','$','%','^','&']#symbols to insert to step

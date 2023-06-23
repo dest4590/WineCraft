@@ -13,7 +13,7 @@ init(default_cheat)
 cheat = read_config()['cheat']
 
 if cheat not in [v['name'] for v in cheats]:
-    cheat = 'NoRender'
+    cheat = 'RockStar'
 
 class App(cs.CTk):
     def __init__(self):
@@ -57,10 +57,12 @@ class App(cs.CTk):
         self.nickname.grid(row=999, column=0, sticky='w', padx=10, pady=10)
 
         # Start button
-        self.start_button = cs.CTkButton(app, text='Start', command=lambda:start_cheat(app, self.start_button, self.nickname), font=cs.CTkFont('Arial', 20), cursor='hand1')
-        self.start_button.grid(row=999, column=999, padx=10, pady=10, sticky='e')
+        self.start_button = cs.CTkButton(app, text='Start', command=lambda:start_cheat(app, self.start_button, self.nickname, self.cheats_box, self.progress_bar), font=cs.CTkFont('Arial', 20), cursor='hand1')
+        self.start_button.grid(row=999, column=0, padx=10, pady=10, sticky='e')
 
-
+        self.progress_bar = cs.CTkProgressBar(app, 770)
+        self.progress_bar.set(0)
+        self.progress_bar.grid(row=998, column=0, padx=10, sticky='we')
 
 app = App()
 app.mainloop()
