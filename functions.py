@@ -4,15 +4,19 @@ from random import choice
 from config import update_config
 from cheats import find_cheat, run_cheat
 from threading import Thread
+import os
+
+minecraft_threads = []
 
 def start_cheat(app: CTk, start_button: CTkButton, nickname: CTkEntry, combobox: CTkComboBox, progress_bar: CTkProgressBar):
-    print('start cheat')
+    print('Start Cheat: ' + combobox.get())
 
     update_config('nickname', nickname.get())
 
     # start cheat in new thread
     cheat_thread = Thread(target=run_cheat, args=(combobox.get(), nickname.get(), progress_bar))
     cheat_thread.start()
+    minecraft_threads.append(cheat_thread)
 
 def text_animation(text):#return a list with step by step animation
     symbols = ['*','@','#','$','%','^','&']#symbols to insert to step
@@ -46,3 +50,14 @@ def on_cheat_select(combobox: CTkComboBox, choice: str, cheat_var: StringVar):
     update_config('cheat', choice)
     # Cheat name animation
     Thread(target=label_animation, args=(cheat_var, cheat_name)).start()
+
+def print_watermark(watermark: str):
+    for wm in watermark.split('\n')[1:]:
+        print(wm)
+        wait(0.05)
+
+def progress_bar_animation(progress_bar: CTkProgressBar):
+    for width in range(0, 770+1):
+        print(width)
+        progress_bar.configure(width)
+        wait(0.01)

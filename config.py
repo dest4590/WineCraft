@@ -1,7 +1,7 @@
 import json
 import os
 
-json_file = 'config.json'
+json_file = './config.json'
 
 def write_config(dict: dict):
     with open(json_file, 'w') as jsonfile:
@@ -37,6 +37,7 @@ def get_value(key: str):
 
 def create_basic(default_cheat):
     write_config({'cheat': default_cheat})
+    
 def init(default_cheat):
     if not os.path.isfile(json_file):
         create_basic(default_cheat)

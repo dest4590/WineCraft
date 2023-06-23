@@ -32,12 +32,14 @@ def run_cheat(name: str, nickname: str, progress_bar):
     find_cheat(name).run(nickname, progress_bar)
 
 class Cheat:
-    def __init__(self, name, link, jar, type, crack_by):
+    def __init__(self, name, link, jar, type, crack_by, os, main_class = 'net.minecraft.client.main.Main'):
         self.name = name
         self.link = link
         self.jar = jar
         self.type = type
         self.crack_by = crack_by
+        self.main_class = main_class
+        self.os = os
         cheats.append(self.get_all())
     def get_all(self):
         # костыли
@@ -87,11 +89,24 @@ class Cheat:
             if not os.path.isdir('downloads/jre_linux'):
                 animation(0.5)
                 download(jre_linux, 'downloads/', kind='zip', replace=True)
+        
+        if not os.path.isfile('downloads/' + self.jar):
+            if not str(self.link).endswith('.zip'):
+                download(self.link, 'downloads/' + self.jar, replace=True)
+            else:
+                download(self.link, 'downloads/', kind='zip', replace=True)
 
         animation(1)
-        download(self.link, 'downloads/' + self.jar)
 
     def run(self, nickname, progress_bar):
+        if self.os == 'windows' and os.name != 'nt':
+            print('Error, this cheat only on Windows!')
+            return
+        
+        elif self.os == 'posix' and os.name == 'nt':
+            print('Error, this cheat only on linux!')
+            return
+
         self.download(progress_bar)
         
         os.chdir('downloads')
@@ -101,10 +116,12 @@ class Cheat:
         if os.name != 'nt': # make chmod +x, fix of Permission denied error
             os.system('chmod +x jre_linux/bin/java')
 
-        start_command = f'''{java_bin} -noverify -Xmx2048M -Djava.library.path=./natives/ -cp ./libraries/*:{self.jar} net.minecraft.client.main.Main --username {nickname} --version WineCraft --gameDir ./ --assetsDir ./assets --assetIndex 1.12 --uuid N/A --accessToken 0 --userType mojang'''
-        print(start_command)
-        os.system(start_command)
-        print('Minecraft STOP')
-        os.chdir('../')
+        start_command = f'''{java_bin} -noverify -Xmx2048M -Djava.library.path=./natives/ -cp ./libraries/*:{self.jar} {self.main_class} --username {nickname} --version WineCraft --gameDir ./ --assetsDir ./assets --assetIndex 1.12 --uuid N/A --accessToken 0 --userType mojang'''
 
-rockstar = Cheat('Rockstar', 'https://cdn.discordapp.com/attachments/1070727971515662447/1121852131591344209/RockStarFree.jar', 'RockStarFree.jar', 'free', None)
+        progress_bar.set(0)
+        os.system(start_command)
+
+        print('Minecraft STOP')
+
+rockstar = Cheat('Rockstar', 'https://cdn.discordapp.com/attachments/1070727971515662447/1121882108554653756/RockStarFree.jar', 'RockStarFree.jar', 'free', None, 'any')
+celestial = Cheat('Celestial', 'https://cdn.discordapp.com/attachments/1121892223324278916/1121914336248610837/Celestial.zip', 'Celestial.jar', 'crack', 'HCU', 'windows')

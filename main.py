@@ -15,6 +15,18 @@ cheat = read_config()['cheat']
 if cheat not in [v['name'] for v in cheats]:
     cheat = 'RockStar'
 
+# watermark
+watermark = '''
+ __        ___             ____            __ _   
+ \ \      / (_)_ __   ___ / ___|_ __ __ _ / _| |_ 
+  \ \ /\ / /| | '_ \ / _ \ |   | '__/ _` | |_| __|
+   \ V  V / | | | | |  __/ |___| | | (_| |  _| |_ 
+    \_/\_/  |_|_| |_|\___|\____|_|  \__,_|_|  \__|'''
+
+
+Thread(target=print_watermark, args=(watermark,)).start()
+
+
 class App(cs.CTk):
     def __init__(self):
         super().__init__()
@@ -57,12 +69,13 @@ class App(cs.CTk):
         self.nickname.grid(row=999, column=0, sticky='w', padx=10, pady=10)
 
         # Start button
-        self.start_button = cs.CTkButton(app, text='Start', command=lambda:start_cheat(app, self.start_button, self.nickname, self.cheats_box, self.progress_bar), font=cs.CTkFont('Arial', 20), cursor='hand1')
+        self.start_button = cs.CTkButton(app, text='Start', command=lambda:start_cheat(app, self.start_button, self.nickname, self.cheats_box, self.progress_bar), font=cs.CTkFont('Arial', 22), cursor='hand1')
         self.start_button.grid(row=999, column=0, padx=10, pady=10, sticky='e')
 
         self.progress_bar = cs.CTkProgressBar(app, 770)
         self.progress_bar.set(0)
         self.progress_bar.grid(row=998, column=0, padx=10, sticky='we')
+
 
 app = App()
 app.mainloop()
