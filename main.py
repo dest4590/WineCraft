@@ -38,6 +38,7 @@ class App(cs.CTk):
 
         app.title('WineCraft - New era of WineLauncher')
         app.geometry('800x430')
+        app.resizable(False, False)
         app.grid_columnconfigure(5, weight=1)
         app.grid_rowconfigure(5, weight=1)
 
