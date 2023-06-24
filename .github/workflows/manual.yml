@@ -28,10 +28,6 @@ jobs:
       - name: Rename file
         run: |
           mv dist/main dist/WineCraft_Build
-          # Debug
-          pwd && ls
-          cd dist/
-          pwd && ls
 
       - name: Get Current Date and Time
         id: current_datetime
@@ -42,8 +38,8 @@ jobs:
         uses: "diillson/auto-release@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          automatic_release_tag: "test"
-          prerelease: false
-          title: "Test Build"
+          automatic_release_tag: "auto"
+          prerelease: true
+          title: "Automatic Build"
           files: |
             dist/WineCraft_Build
