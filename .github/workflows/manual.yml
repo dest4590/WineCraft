@@ -1,4 +1,4 @@
-name: Create Sequential Tags and Build
+name: Automatic Build
 
 on:
   push:
@@ -20,7 +20,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install customtkinter download pillow
+          pip install customtkinter download pillow pyinstaller
 
       - name: Build
         run: |
