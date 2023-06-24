@@ -24,7 +24,7 @@ jobs:
 
       - name: Build
         run: |
-          pyinstaller --noconfirm --onefile --windowed --add-data "$VIRTUAL_ENV/lib/python3.8/site-packages/customtkinter:customtkinter/" main.py
+          pyinstaller --noconfirm --onefile --windowed --add-data "/opt/hostedtoolcache/Python/3.8.17/x64/lib/python3.8/site-packages/customtkinter:customtkinter/" main.py
 
       - name: Rename file
         run: |
