@@ -1,0 +1,57 @@
+name: Create Sequential Tags and Build
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+
+      - name: Install dependencies
+        run: |
+          pip install customtkinter download pillow
+
+      - name: Build
+        run: |
+          pyinstaller --noconfirm --onefile --windowed --add-data "$VIRTUAL_ENV/lib/python3.8/site-packages/customtkinter:customtkinter/" main.py
+
+      - name: Rename file
+        run: |
+          mv dist/main dist/WineCraft_Build
+
+      - name: Determine Last Tag
+        id: last_tag
+        run: |
+          LAST_TAG=$(git describe --tags --abbrev=0)
+          echo "::set-output name=tag::$LAST_TAG"
+
+      - name: Increment Version
+        id: increment_version
+        run: |
+          LAST_TAG=${{ steps.last_tag.outputs.tag }}
+          IFS='.' read -ra VERSION_PARTS <<< "$LAST_TAG"
+          MAJOR=${VERSION_PARTS[0]}
+          MINOR=${VERSION_PARTS[1]}
+          NEW_MINOR=$((MINOR + 1))
+          NEW_TAG="$MAJOR.$NEW_MINOR"
+          echo "::set-output name=tag::$NEW_TAG"
+
+      - name: Create Tag
+        run: |
+          git config user.name "purpl3-yt"
+          git config user.email "${{ secrets.EMAIL }}"
+          NEW_TAG=${{ steps.increment_version.outputs.tag }}
+          git add dist/WineCraft_Build
+          git tag -a $NEW_TAG -m "Automatic Build $NEW_TAG"
+          git push origin $NEW_TAG
