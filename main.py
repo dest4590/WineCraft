@@ -57,7 +57,7 @@ class App(cs.CTk):
         Thread(target=label_animation, args=(self.banner_var, 'WineCraft')).start()
 
         # Cheats combobox
-        self.cheats_box = cs.CTkComboBox(app, values=[v['name'] for v in cheats], state='readonly', font=cs.CTkFont('Bahnschrift', 16), command=lambda choice:on_cheat_select(self.cheats_box, choice, self.cheat_var), dropdown_font=cs.CTkFont('Bashscrift', 16))
+        self.cheats_box = cs.CTkComboBox(app, values=[v['name'] for v in cheats], state='readonly', font=cs.CTkFont('Bahnschrift', 16), command=lambda choice:on_cheat_select(self.cheats_box, choice, self.cheat_var), dropdown_font=cs.CTkFont('Bashscrift', 16), width=200)
         self.cheats_box.set(cheat)
         self.cheats_box.grid(row=1, column=0, padx=10, sticky='nw')
 
