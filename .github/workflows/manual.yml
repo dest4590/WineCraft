@@ -1,0 +1,47 @@
+name: Create Tag and Upload File
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+
+      - name: Install dependencies
+        run: |
+          pip install customtkinter download pillow pyinstaller
+
+      - name: Build
+        run: |
+          pyinstaller --noconfirm --onefile --windowed --add-data "/opt/hostedtoolcache/Python/3.8.17/x64/lib/python3.8/site-packages/customtkinter:customtkinter/" main.py
+
+      - name: Rename file
+        run: |
+          mv dist/main dist/WineCraft_Build
+
+      - name: Get Current Date and Time
+        id: current_datetime
+        run: |
+          echo "::set-output name=datetime::$(date +'%Y-%m-%d_%H-%M-%S')"
+
+      - name: Create Tag and Upload File
+        run: |
+          git config user.name "purpl3-yt"
+          git config user.email "${{ secrets.EMAIL }}"
+          DATETIME=${{ steps.current_datetime.outputs.datetime }}
+          TAG_NAME="build_${DATETIME}"
+          git tag -a $TAG_NAME -m "Build version $TAG_NAME"
+          git add dist/WineCraft_Build
+          git commit -m "Upload file for $TAG_NAME tag"
+          git push origin $TAG_NAME
