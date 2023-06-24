@@ -37,7 +37,7 @@ jobs:
           echo "::set-output name=datetime::$(date +'%Y-%m-%d_%H-%M-%S')"
 
       - name: Upload Release
-      - uses: "diillson/auto-release@latest"
+        uses: "diillson/auto-release@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           automatic_release_tag: "test"
