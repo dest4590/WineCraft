@@ -2,7 +2,7 @@ from time import sleep as wait
 from customtkinter import CTk, CTkButton, StringVar, CTkComboBox, CTkEntry, CTkProgressBar, CTk
 from random import choice
 from config import update_config
-from cheats import find_cheat, run_cheat
+from cheats import find_cheat, run_cheat, createFolder
 from threading import Thread
 from download import download
 import os
@@ -47,7 +47,7 @@ def label_animation(stringvar: StringVar, text: str):
 
 def on_cheat_select(combobox: CTkComboBox, choice: str, cheat_var: StringVar):
     cheat_info = find_cheat(choice).get_all()
-    cheat_name = choice if cheat_info['type'] == 'free' else choice + ' By ' + cheat_info['crack_by']
+    cheat_name = choice + ' Free' if cheat_info['type'] == 'free' else choice + ' Crack By ' + cheat_info['crack_by']
     update_config('cheat', choice)
     # Cheat name animation
     Thread(target=label_animation, args=(cheat_var, cheat_name)).start()
@@ -63,12 +63,8 @@ def progress_bar_animation(progress_bar: CTkProgressBar):
         progress_bar.configure(width)
         wait(0.01)
 
-def createFolder(folder: str):            
-    if not os.path.isdir(folder):
-        os.mkdir(folder)
-
 def download_assets():
     createFolder('./assets')
     
-    if os.path.isfile('./assets/logo.ico') or os.path.isfile('./assets/logo.png') is False:
-        download('https://cdn.discordapp.com/attachments/1121892223324278916/1122125098309124126/assets.zip', './assets/', kind='zip', replace=True, progressbar=False, verbose=False)
+    if not os.path.isfile('./assets/logo.png'):
+        download('https://cdn.discordapp.com/attachments/1121892223324278916/1122125098309124126/assets.zip', './', kind='zip', replace=True, progressbar=False, verbose=False)
