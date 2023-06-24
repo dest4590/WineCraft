@@ -1,4 +1,4 @@
-name: Automatic Build
+name: Automatic Build and Tag
 
 on:
   push:
