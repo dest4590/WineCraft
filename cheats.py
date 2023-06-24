@@ -62,8 +62,16 @@ class Cheat:
         cheats.append(self.get_all())
     def get_all(self):
         # костыли
-        all_members = inspect.getmembers(self, lambda a:not(inspect.isroutine(a)))[1][1] 
-        all_members['class'] = self
+        all_members = {
+            'name': self.name,
+            'link': self.link,
+            'jar': self.jar,
+            'type': self.type,
+            'crack_by': self.crack_by,
+            'main_class': self.main_class,
+            'os': self.os,
+            'class': self
+        }
         return all_members
 
     def download(self, progress_bar, forge): # downloads libs, natives, etc.
