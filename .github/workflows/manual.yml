@@ -28,19 +28,22 @@ jobs:
       - name: Rename file
         run: |
           mv dist/main dist/WineCraft_Build
+          # Debug
+          pwd && ls
+          cd dist/
+          pwd && ls
 
       - name: Get Current Date and Time
         id: current_datetime
         run: |
           echo "::set-output name=datetime::$(date +'%Y-%m-%d_%H-%M-%S')"
 
-      - name: Create Tag and Upload File
-        run: |
-          git config user.name "purpl3-yt"
-          git config user.email "${{ secrets.EMAIL }}"
-          DATETIME=${{ steps.current_datetime.outputs.datetime }}
-          TAG_NAME="build_${DATETIME}"
-          git tag -a $TAG_NAME -m "Build version $TAG_NAME"
-          git add dist/WineCraft_Build
-          git commit -m "Upload file for $TAG_NAME tag"
-          git push origin $TAG_NAME
+      - name: Upload Release
+        uses: "diillson/auto-release@latest"
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatic_release_tag: "test"
+          prerelease: false
+          title: "Test Build"
+          files: |
+            dist/WineCraft_Build
