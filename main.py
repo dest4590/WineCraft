@@ -1,9 +1,10 @@
 import customtkinter as cs
-from tkinter import ttk
 from functions import *
 from cheats import cheats
 from threading import Thread
-from config import init, read_config, write_config, get_value
+import webbrowser
+from PIL import Image
+from config import init, read_config, get_value
 import random
 
 default_cheat = cheats[0]['name']
@@ -14,6 +15,8 @@ cheat = read_config()['cheat']
 
 if cheat not in [v['name'] for v in cheats]:
     cheat = 'RockStar'
+
+download_assets()
 
 # watermark
 watermark = '''
@@ -33,17 +36,21 @@ class App(cs.CTk):
 
         app = self
 
-        self.title('WineCraft - New era of WineLauncher')
-        self.geometry('800x430')
-        app.grid_columnconfigure(4, weight=1)
+        app.title('WineCraft - New era of WineLauncher')
+        app.geometry('800x430')
+        app.grid_columnconfigure(5, weight=1)
         app.grid_rowconfigure(5, weight=1)
 
+        # Logo
+        self.logo = cs.CTkLabel(app, text='', image=cs.CTkImage(dark_image=Image.open('./assets/logo.png'), size=(50,60)), cursor='hand1')
+        self.logo.bind('<Button-1>', lambda event: webbrowser.open('http://discord.gg/Ag6XCDfzXz'))
+        self.logo.grid(row=0, column=0, padx=10, pady=10, sticky='nw')
 
         # Banner
         self.banner_var = StringVar()
         self.banner_var.set('')
         self.banner = cs.CTkLabel(app, font=cs.CTkFont('Bahnschrift', 25), textvariable=self.banner_var)
-        self.banner.grid(row=0, column=0, padx=10, pady=10, sticky='nw')
+        self.banner.grid(row=0, column=0, padx=70, sticky='w')
         
         # Banner animation
         Thread(target=label_animation, args=(self.banner_var, 'WineCraft')).start()
@@ -69,7 +76,7 @@ class App(cs.CTk):
         self.nickname.grid(row=999, column=0, sticky='w', padx=10, pady=10)
 
         # Start button
-        self.start_button = cs.CTkButton(app, text='Start', command=lambda:start_cheat(app, self.start_button, self.nickname, self.cheats_box, self.progress_bar), font=cs.CTkFont('Arial', 22), cursor='hand1')
+        self.start_button = cs.CTkButton(app, text='Start', command=lambda:start_cheat(app, self.start_button, self.nickname, self.cheats_box, self.progress_bar), font=cs.CTkFont('Arial', 22), cursor='hand1', image=cs.CTkImage(dark_image=Image.open('./assets/play.png')))
         self.start_button.grid(row=999, column=0, padx=10, pady=10, sticky='e')
 
         self.progress_bar = cs.CTkProgressBar(app, 770)

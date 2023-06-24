@@ -1,9 +1,10 @@
 from time import sleep as wait
-from customtkinter import CTk, CTkButton, CTkLabel, StringVar, CTkComboBox, CTkEntry, CTkProgressBar
+from customtkinter import CTk, CTkButton, StringVar, CTkComboBox, CTkEntry, CTkProgressBar, CTk
 from random import choice
 from config import update_config
 from cheats import find_cheat, run_cheat
 from threading import Thread
+from download import download
 import os
 
 minecraft_threads = []
@@ -61,3 +62,13 @@ def progress_bar_animation(progress_bar: CTkProgressBar):
         print(width)
         progress_bar.configure(width)
         wait(0.01)
+
+def createFolder(folder: str):            
+    if not os.path.isdir(folder):
+        os.mkdir(folder)
+
+def download_assets():
+    createFolder('./assets')
+    
+    if os.path.isfile('./assets/logo.ico') or os.path.isfile('./assets/logo.png') is False:
+        download('https://cdn.discordapp.com/attachments/1121892223324278916/1122125098309124126/assets.zip', './assets/', kind='zip', replace=True, progressbar=False, verbose=False)

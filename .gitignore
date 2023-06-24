@@ -1,3 +1,7 @@
 /__pycache__
 /config.json
 downloads/
+bin/
+lib/
+pyvenv.cfg
+assets/
