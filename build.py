@@ -1,1 +1,0 @@
-# pyinstaller --noconfirm --onefile --windowed --add-data "/home/purpl3/.local/lib/python3.11/site-packages/customtkinter:customtkinter/" main.py
