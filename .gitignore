@@ -7,4 +7,3 @@ pyvenv.cfg
 assets/
 main.spec
 build/
-dist/
