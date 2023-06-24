@@ -41,11 +41,7 @@ jobs:
           git config user.email "${{ secrets.EMAIL }}"
           DATETIME=${{ steps.current_datetime.outputs.datetime }}
           TAG_NAME="build_${DATETIME}"
-          git checkout -b temp_branch
-          git add dist/WineCraft_Build
-          git commit -m "Add file to tag"
           git tag -a $TAG_NAME -m "Build version $TAG_NAME"
-          git push origin temp_branch
+          git add dist/WineCraft_Build
+          git commit -m "Upload file for $TAG_NAME tag"
           git push origin $TAG_NAME
-          git checkout main
-          git branch -D temp_branch
