@@ -5,3 +5,6 @@ bin/
 lib/
 pyvenv.cfg
 assets/
+main.spec
+build/
+dist/
