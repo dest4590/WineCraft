@@ -28,8 +28,10 @@ jobs:
       - name: Rename file
         run: |
           mv dist/main dist/WineCraft_Build
-          pwd # Debug
-          ls  # Debug
+          # Debug
+          pwd && ls
+          cd dist/
+          pwd && ls
 
       - name: Get Current Date and Time
         id: current_datetime
@@ -41,7 +43,7 @@ jobs:
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           automatic_release_tag: "test"
-          prerelease: true
+          prerelease: false
           title: "Test Build"
           files: |
-            WineCraft_Build
+            dist/WineCraft_Build
