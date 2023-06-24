@@ -45,4 +45,3 @@ jobs:
           git push origin $TAG_NAME
           git add dist/WineCraft_Build
           git commit -m "Upload file for $TAG_NAME tag"
-          git push origin $TAG_NAME --force --quiet -u origin HEAD:refs/tags/$TAG_NAME
