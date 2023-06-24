@@ -24,7 +24,7 @@ jobs:
 
       - name: Build
         run: |
-          pyinstaller --noconfirm --onefile --console --icon "assets/logo.ico" --name "WineCraft-Alpha" --clean --add-data "/opt/hostedtoolcache/Python/3.8.17/x64/lib/python3.8/site-packages/customtkinter:customtkinter/" --add-data "/opt/hostedtoolcache/Python/3.8.17/x64/lib/python3.8/site-packages/PIL:PIL/" --add-data "/opt/hostedtoolcache/Python/3.8.17/x64/lib/python3.8/tkinter/:tkinter/" --hidden-import "Pillow.libs" main.py
+          pyinstaller --noconfirm --onefile --console --icon "assets/logo.ico" --clean --add-data "/opt/hostedtoolcache/Python/3.8.17/x64/lib/python3.8/site-packages/customtkinter:customtkinter/" --add-data "/opt/hostedtoolcache/Python/3.8.17/x64/lib/python3.8/site-packages/PIL:PIL/" --add-data "/opt/hostedtoolcache/Python/3.8.17/x64/lib/python3.8/tkinter/:tkinter/" --hidden-import "Pillow.libs" main.py
       - name: Rename file
         run: |
           mv dist/main dist/WineCraft_Build
