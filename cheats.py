@@ -180,7 +180,7 @@ rockstar = Cheat('Rockstar', 'https://cdn.discordapp.com/attachments/10707279715
 celestial = Cheat('Celestial', 'https://cdn.discordapp.com/attachments/1121892223324278916/1121914336248610837/Celestial.zip', 'Celestial.jar', 'crack', 'HCU', 'windows')
 rusherhack = ForgeCheat('RusherHack (Forge)', 'https://cdn.discordapp.com/attachments/1042843016316076135/1122165341934592102/rushercrack.jar', 'rushercrack.jar', 'crack', 'PlutoSolutions', 'any')
 
-
+'''
 class progress_bar:
     def get():
         return 2.0
@@ -188,3 +188,4 @@ class progress_bar:
         return None
 
 rusherhack.run_forge('test', progress_bar)
+'''
