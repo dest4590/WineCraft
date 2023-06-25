@@ -1,11 +1,15 @@
-name: Create Tag and Upload File
+name: Create Tag and Upload File Windows
 
 # izzy8799 been here
 
+#on:
+#  push:
+#    branches:
+#      - main
+
+# temporary manual build
 on:
-  push:
-    branches:
-      - main
+    workflow_dispatch:
 
 jobs:
   build-windows:
@@ -26,7 +30,7 @@ jobs:
 
       - name: Build
         run: |
-          pyinstaller --noconfirm --onefile --console --icon "assets\logo.ico" --clean --add-data "c:\hostedtoolcache\windows\python\3.8.10\x64\lib\site-packages\customtkinter:customtkinter\" --add-data "c:\hostedtoolcache\windows\python\3.8.10\x64\lib\site-packages\PIL:PIL\" --add-data "c:\hostedtoolcache\windows\python\3.8.10\x64\lib\tkinter\:tkinter\" --hidden-import "Pillow.libs" main.py
+          pyinstaller --noconfirm --onefile --console --icon "assets\logo.ico" --clean --add-data "c:\hostedtoolcache\windows\python\3.8.10\x64\lib\site-packages\customtkinter;customtkinter\" --add-data "c:\hostedtoolcache\windows\python\3.8.10\x64\lib\site-packages\PIL;PIL\" --add-data "c:\hostedtoolcache\windows\python\3.8.10\x64\lib\tkinter\;tkinter\" --hidden-import "Pillow.libs" main.py
       
       - name: Rename file
         run: |
