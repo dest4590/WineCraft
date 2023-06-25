@@ -1,9 +1,13 @@
-name: Create Tag and Upload File
+name: Create Tag and Upload File Linux
 
+#on:
+#  push:
+#    branches:
+#      - main
+
+# temporary manual build
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
 
 jobs:
   build-linux:
