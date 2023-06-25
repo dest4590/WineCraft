@@ -23,12 +23,12 @@ def createFolder(folder: str):
 libraries_link = 'https://cdn.discordapp.com/attachments/1042843016316076135/1122174397621469304/libraries.zip'
 assets_1_12 = 'https://cdn.discordapp.com/attachments/698068083360792576/1121762450086297620/assets.zip'
 
-natives_link_windows = ''
+natives_link_windows = 'https://cdn.discordapp.com/attachments/1042843016316076135/1122507634763902976/natives.zip'
 natives_link_linux = 'https://cdn.discordapp.com/attachments/698068083360792576/1121760302715899955/natives.zip'
 
 
 jre_linux = 'https://cdn.discordapp.com/attachments/698068083360792576/1121763716703191070/jre_linux.zip'
-jre_windows = ''
+jre_windows = 'https://cdn.discordapp.com/attachments/1042843016316076135/1122498814981439548/jre_windows.zip'
 
 def find_cheat(name: str):
     for cheat in cheats:
