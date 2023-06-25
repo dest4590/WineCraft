@@ -37,11 +37,15 @@ jobs:
           cd dist
           ren "main.exe" "WineCraft_Build.exe"
 
+      - name: Get current date
+        id: date
+        run: echo "::set-output name=date::$(Get-Date -Format 'yyyy-MM-dd')"
+
       - name: Upload Release
         uses: "diillson/auto-release@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          automatic_release_tag: "auto"
+          automatic_release_tag: "build_${{ steps.date.outputs.date }}"
           prerelease: true
           title: "Automatic Build Windows"
           files: |

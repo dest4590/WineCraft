@@ -34,7 +34,7 @@ jobs:
           mv dist/main dist/WineCraft_Build
 
       - name: Get Current Date and Time
-        id: current_datetime
+        id: date
         run: |
           echo "::set-output name=datetime::$(date +'%Y-%m-%d_%H-%M-%S')"
 
@@ -42,7 +42,7 @@ jobs:
         uses: "diillson/auto-release@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          automatic_release_tag: "auto"
+          automatic_release_tag: "build_${{ steps.date.outputs.date }}"
           prerelease: true
           title: "Automatic Build Linux"
           files: |
