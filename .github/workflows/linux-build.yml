@@ -42,7 +42,7 @@ jobs:
         uses: "diillson/auto-release@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          automatic_release_tag: "build_${{ steps.date.outputs.date }}"
+          automatic_release_tag: "build_${{ steps.date.outputs.date }}_linux"
           prerelease: true
           title: "Automatic Build Linux"
           files: |
