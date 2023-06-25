@@ -34,7 +34,7 @@ jobs:
       
       - name: Rename file
         run: |
-          rename dist\main.exe dist\WineCraft_Build.exe
+          ren dist\main.exe dist\WineCraft_Build.exe
 
       - name: Upload Release
         uses: "diillson/auto-release@latest"
