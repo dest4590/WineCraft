@@ -39,7 +39,7 @@ jobs:
 
       - name: Get current date
         id: date
-        run: echo "::set-output name=date::$(Get-Date -Format 'yyyy-MM-dd HH-mm')"
+        run: echo "::set-output name=date::$(Get-Date -Format 'yyyy-MM-dd-HH-mm')"
 
       - name: Upload Release
         uses: "diillson/auto-release@latest"
