@@ -8,7 +8,7 @@ on:
       - main
 
 jobs:
-  build-linux:
+  build-windows:
     runs-on: windows-2022
 
     steps:
@@ -26,11 +26,11 @@ jobs:
 
       - name: Build
         run: |
-          pyinstaller --noconfirm --onefile --console --icon "assets/logo.ico" --clean --add-data "/opt/hostedtoolcache/Python/3.8.17/x64/lib/python3.8/site-packages/customtkinter:customtkinter/" --add-data "/opt/hostedtoolcache/Python/3.8.17/x64/lib/python3.8/site-packages/PIL:PIL/" --add-data "/opt/hostedtoolcache/Python/3.8.17/x64/lib/python3.8/tkinter/:tkinter/" --hidden-import "Pillow.libs" main.py
+          pyinstaller --noconfirm --onefile --console --icon "assets\logo.ico" --clean --add-data "c:\hostedtoolcache\windows\python\3.8.10\x64\lib\site-packages\customtkinter:customtkinter\" --add-data "c:\hostedtoolcache\windows\python\3.8.10\x64\lib\site-packages\PIL:PIL\" --add-data "c:\hostedtoolcache\windows\python\3.8.10\x64\lib\tkinter\:tkinter\" --hidden-import "Pillow.libs" main.py
       
       - name: Rename file
         run: |
-          rename dist/main.exe dist/WineCraft_Build.exe
+          rename dist\main.exe dist\WineCraft_Build.exe
 
       - name: Upload Release
         uses: "diillson/auto-release@latest"
@@ -40,4 +40,4 @@ jobs:
           prerelease: true
           title: "Automatic Build Windows"
           files: |
-            dist/WineCraft_Build.exe
+            dist\WineCraft_Build.exe
