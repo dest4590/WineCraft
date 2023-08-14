@@ -1,4 +1,4 @@
-![banner](https://github.com/purpl3-yt/WineCraft/assets/80628386/49961d87-f730-4f2f-8c25-fc6e302131fa)
+![banner](https://github.com/purpl3-yt/WineCraft/assets/80628386/502a4fed-273d-4368-b75c-0dae87ea6479)
 
 <h1 align='center'>WineCraft - New era of WineLauncher!</h1>
 
