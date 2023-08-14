@@ -8,10 +8,6 @@
 
 
 # Status:
-![Build Windows](https://github.com/purpl3-yt/WineCraft/actions/workflows/winduz-build.yml/badge.svg)
-
-![Build Linux](https://github.com/purpl3-yt/WineCraft/actions/workflows/linux-build.yml/badge.svg)
-
 ![Discord online](https://badgen.net/discord/online-members/Ag6XCDfzXz)
 
 ![Discord members](https://badgen.net/discord/members/Ag6XCDfzXz)
