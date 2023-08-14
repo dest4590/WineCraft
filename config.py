@@ -12,12 +12,20 @@ def write_config(dict: dict):
             return False
 
 def read_config():
-    with open(json_file, 'r') as jsonfile:
-        try:
-            data = json.loads(jsonfile.read())
-            return data
-        except Exception as e:
-            return False
+    def read():
+        with open(json_file, 'r') as jsonfile:
+            try:
+                data = json.loads(jsonfile.read())
+                return data
+            except Exception as e:
+                return False
+
+    try:
+        return read()
+        
+    except FileNotFoundError:
+        os.chdir('../')
+        return read()
 
 def update_config(key: str, value: str):
     data = read_config()

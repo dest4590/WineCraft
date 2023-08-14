@@ -4,5 +4,7 @@ downloads/
 bin/
 lib/
 pyvenv.cfg
-main.spec
+*.spec
+upx/
 build/
+*.exe
